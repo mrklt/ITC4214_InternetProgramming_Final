@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafty - DIY Pottery Supplies</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS (Optional for styling tweaks) -->
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'home/navbar.html' %}
+    
+    <!-- Hero Section -->
+    <header class="bg-light py-5">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold text-primary">Welcome to Crafty!</h1>
+            <p class="lead text-secondary">
+                Your one-stop destination for all DIY pottery supplies and tools.
+            </p>
+            <a href="{% url 'products' %}" class="btn btn-primary btn-lg mt-3" role="button" aria-label="Browse our products">
+                Browse Products
+            </a>
+        </div>
+    </header>
+
+    <!-- Featured Categories Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Explore Our Categories</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Card 1 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{% static 'images/tools.jpg' %}" class="card-img-top" alt="Pottery Tools" aria-label="Pottery tools">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pottery Tools</h5>
+                            <p class="card-text">Find the best tools to create your pottery masterpieces.</p>
+                            <a href="{% url 'products' %}?category=tools" class="btn btn-outline-primary">Shop Tools</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{% static 'images/clay.jpg' %}" class="card-img-top" alt="Pottery Clay" aria-label="Pottery clay">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pottery Clay</h5>
+                            <p class="card-text">Discover high-quality clay for all your pottery needs.</p>
+                            <a href="{% url 'products' %}?category=clay" class="btn btn-outline-primary">Shop Clay</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{% static 'images/paint.jpg' %}" class="card-img-top" alt="Pottery Paints" aria-label="Pottery paints">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pottery Paints</h5>
+                            <p class="card-text">Explore vibrant paints to bring your pottery to life.</p>
+                            <a href="{% url 'products' %}?category=paints" class="btn btn-outline-primary">Shop Paints</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                &copy; 2024 Crafty. All rights reserved.
+            </p>
+            <ul class="list-inline mt-2">
+                <li class="list-inline-item"><a href="#" class="text-light">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#" class="text-light">Terms of Service</a></li>
+                <li class="list-inline-item"><a href="{% url 'about' %}" class="text-light">About Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

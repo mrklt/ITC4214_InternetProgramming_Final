@@ -6,5 +6,5 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'home/index.html')  # Render the homepage
 
-def about_view(request):
+def about(request):
     return render(request, 'home/about.html')  # Render the about page

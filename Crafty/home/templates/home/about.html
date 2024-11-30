@@ -14,24 +14,25 @@
     <body class="d-flex flex-column min-vh-100">
         {% include 'home/navbar.html' %}
 
-        <h1>About Us</h1>
-        <div class="about">
-            <p>Crafty is a platform where creativity thrives.</p>
-            <p>With products like pottery tools, paints and clay, it helps you create your pottery masterpieces.</p>
-        </div>
-        <div class="container">
-            <div class="row text-center">
-              <div class="col-md-4">
-                <div class="card team-card">
-                  <img class="card-img-top img-thumbnail" src="{% static 'home/images/Margarita.JPG' %}" alt="Margarita Mark">
-                  <div class="card-body">
-                    <h4 class="card-title">Margarita Mark</h4>
-                    <p class="card-text">Project Manager</p>
-                  </div>
-                </div>
-              </div>
+        <main class="container my-5">
+            <h1 class="text-center mb-4">About Us</h1>
+            <div class="about text-center mx-auto" style="max-width: 800px;">
+                <p class="lead">Crafty is a platform where creativity thrives.</p>
+                <p class="mb-5">With products like pottery tools, paints and clay, it helps you create your pottery masterpieces.</p>
             </div>
-        </div>
+            
+            <div class="row justify-content-center text-center">
+                <div class="col-md-4">
+                    <div class="card team-card shadow-sm">
+                        <img class="card-img-top img-thumbnail" src="{% static 'home/images/Margarita.JPG' %}" alt="Margarita Mark">
+                        <div class="card-body">
+                            <h4 class="card-title">Margarita Mark</h4>
+                            <p class="card-text text-muted">Project Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <footer class=" py-4 mt-auto">
             <div class="container text-center">

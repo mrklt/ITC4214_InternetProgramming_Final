@@ -1,21 +1,32 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Item, Category, SubCategory
 
-def products(request):
-    # Get all items or filter by search parameters
-    search_query = request.GET.get('q', '')
-    category_filter = request.GET.get('category', '')
-
+def product_list(request):
     items = Item.objects.all()
+    query = request.GET.get('q')
+    category = request.GET.get('category')
 
-    if search_query:
-        items = items.filter(name__icontains=search_query)
+    if query:
+        items = items.filter(name__icontains=query)
 
-    if category_filter:
-        items = items.filter(category__name=category_filter)
+    if category:
+        # Check if the selected option is a subcategory
+        try:
+            subcategory = SubCategory.objects.get(name=category)
+            items = items.filter(subcategory=subcategory)
+        except SubCategory.DoesNotExist:
+            # If not a subcategory, it must be a main category
+            try:
+                category_obj = Category.objects.get(name=category)
+                items = items.filter(category=category_obj)
+            except Category.DoesNotExist:
+                items = items.none()
 
-    categories = Category.objects.all()  # For dropdown filters
-    return render(request, 'products/index.html', {'items': items, 'categories': categories})
+    context = {
+        'items': items,
+        'categories': Category.objects.all(),
+    }
+    return render(request, 'products/index.html', context)
 
 def product_detail(request, product_id):
     item = get_object_or_404(Item, id=product_id)

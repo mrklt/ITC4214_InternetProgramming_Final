@@ -1,0 +1,24 @@
+/* Registration form styles */
+.register-card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.register-card input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.register-card ul.errorlist {
+    color: red;
+    font-size: 14px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.register-card .form-label {
+    font-weight: 500;
+}

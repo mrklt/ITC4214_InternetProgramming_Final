@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.contrib.auth.models import Group
 from .forms import UserRegistrationForm, UserProfileForm
 
 def registration(request):
@@ -9,6 +10,7 @@ def registration(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.groups.add(Group.objects.get(name='Users'))  # Add user to 'Users' group
             login(request, user)
             messages.success(request, 'Registration successful!')
             return redirect('home')
@@ -43,6 +45,11 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
     return render(request, 'registration/profile.html', {'form': form})
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrators').exists())
+def admin_page(request):
+    # Admin-specific logic here
+    return render(request, 'registration/admin_page.html')
 
 def search_items(request):
     query = request.GET.get('query', '')

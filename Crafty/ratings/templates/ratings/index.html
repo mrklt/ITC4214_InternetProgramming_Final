@@ -1,34 +1,54 @@
-{% load static%}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Crafty Team">
-        <title>Crafty - Ratings</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'home/styles.css' %}" >
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" defer></script>
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-        {% include 'home/navbar.html' %}
 
-        {% block content %}
-            <h1>Ratings</h1>
-            <p>View and leave ratings for our products or website.</p>
-        {% endblock %}
+{% load static %}
 
-        <footer class=" py-4 mt-auto">
-            <div class="container text-center">
-                <p class="mb-0">
-                    &copy; 2024 Crafty. All rights reserved.
-                </p>
-                <ul class="list-inline mt-2">
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="{% url 'about' %}">About Us</a></li>
-                </ul>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'ratings/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+    <!-- Recommendations Section -->
+    <div class="recommendations mb-4">
+        <h3>Recommended for You</h3>
+        <div id="recommendations-container" class="row">
+            <!-- Recommendations will be loaded here via AJAX -->
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Items List -->
+    <div class="items-list">
+        {% for item in items %}
+        <div class="item-card mb-4">
+            <h4>{{ item.name }}</h4>
+            
+            <!-- Rating Stars -->
+            <div class="rating-container" data-item-id="{{ item.id }}">
+                <div class="stars">
+                    {% for i in "12345" %}
+                    <span class="star {% if item.avg_rating >= forloop.counter %}active{% endif %}" 
+                          data-value="{{ forloop.counter }}">★</span>
+                    {% endfor %}
+                </div>
+                <span class="avg-rating">
+                    {{ item.avg_rating|default_if_none:0|floatformat:1 }} / 5
+                </span>
             </div>
-        </footer>
-    </body>
-</html>
+
+            {% if user.is_authenticated %}
+            <!-- Review Form -->
+            <form class="review-form mt-3" style="display: none;">
+                <textarea class="form-control mb-2" placeholder="Write your review..."></textarea>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'ratings/ratings.js' %}"></script>
+{% endblock %}

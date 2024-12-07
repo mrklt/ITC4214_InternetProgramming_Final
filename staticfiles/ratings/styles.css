@@ -1,0 +1,34 @@
+.rating-container {
+    margin: 20px 0;
+}
+
+.stars {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.star {
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star.active {
+    color: #ffd700;
+}
+
+.star:hover,
+.star:hover ~ .star {
+    color: #ffd700;
+}
+
+.avg-rating {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.recommendations .item-card {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}

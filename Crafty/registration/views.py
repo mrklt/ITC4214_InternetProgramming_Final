@@ -13,7 +13,7 @@ def registration(request):
             user.groups.add(Group.objects.get(name='Users'))  # Add user to 'Users' group
             login(request, user)
             messages.success(request, 'Registration successful!')
-            return redirect('home')
+            return redirect('profile')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -25,7 +25,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'registration/login.html')

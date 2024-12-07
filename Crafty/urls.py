@@ -26,10 +26,7 @@ urlpatterns = [
     path('registration/', include('registration.urls')),  # Registration app
     path('ratings/', include('ratings.urls')),  # Ratings app
     path('shopping_cart/', include('shopping_cart.urls')),  
-    path('', include("django.contrib.auth.urls")),
-    path('logout/', include('registration.urls')),
-    path('profile/', include('registration.urls')),
-
+    path('', include("django.contrib.auth.urls")), 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

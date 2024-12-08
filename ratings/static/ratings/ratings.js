@@ -1,3 +1,5 @@
+var isAuthenticated = true;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Load recommendations for logged-in users
     loadRecommendations();

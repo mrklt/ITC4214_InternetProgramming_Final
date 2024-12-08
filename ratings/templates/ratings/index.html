@@ -41,6 +41,7 @@
             <form class="review-form mt-3" style="display: none;">
                 <textarea class="form-control mb-2" placeholder="Write your review..."></textarea>
                 <button type="submit" class="btn " style="background-color: #ccd5ae;">Submit Review</button>
+                {% csrf_token %}
             </form>
             {% endif %}
         </div>

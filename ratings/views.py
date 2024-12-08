@@ -10,10 +10,13 @@ def index(request):
 
 @login_required
 def rate_item(request):
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST': #and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         item_id = request.POST.get('item_id')
         stars = request.POST.get('stars')
         review = request.POST.get('review', '')
+        
+        # Debugging: Log the received data
+        print(f"Received rating: item_id={item_id}, stars={stars}, review={review}")
         
         rating, created = Rating.objects.update_or_create(
             user=request.user,

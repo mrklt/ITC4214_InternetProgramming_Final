@@ -51,18 +51,18 @@
                         {% if item.image %}
                             <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
                         {% endif %}
-                        <div class="card-body d-flex flex-column" >
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ item.name }}</h5>
                             <p class="card-text">
                                 <strong>${{ item.price }}</strong>
                                 <span class="ms-2">
                                     <i class="fas fa-star text-warning"></i>
-                                    {{ item.average_rating|default:"No ratings" }}
+                                    {{ item.avg_rating|default:"No ratings" }}
                                     {% if user.is_authenticated %}
                                         <div class="rating-container" data-item-id="{{ item.id }}">
                                             {% for i in "12345" %}
-                                                <span class="star" data-value="{{ forloop.counter }}">
-                                                    {% if item.average_rating >= forloop.counter %}
+                                                <span class="star {% if item.avg_rating >= forloop.counter %}active{% endif %}" data-value="{{ forloop.counter }}">
+                                                    {% if item.avg_rating >= forloop.counter %}
                                                         ★
                                                     {% else %}
                                                         ☆

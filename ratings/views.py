@@ -6,7 +6,7 @@ from django.db.models import Avg, Q
 
 def index(request):
     items = Item.objects.annotate(avg_rating=Avg('rating__stars')).order_by('-avg_rating')
-    return render(request, 'ratings/index.html', {'items': items})
+    return render(request, 'products/index.html', {'items': items})
 
 @login_required
 def rate_item(request):

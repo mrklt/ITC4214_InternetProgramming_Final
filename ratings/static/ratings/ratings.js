@@ -38,8 +38,21 @@ function submitRating(itemId, stars) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            updateStarDisplay(itemId, data.avg_rating);
+            updateStarDisplay(itemId, stars);
             loadRecommendations();  // Refresh recommendations
+        }
+    });
+}
+
+function updateStarDisplay(itemId, stars) {
+    const container = document.querySelector(`.rating-container[data-item-id="${itemId}"]`);
+    const starElements = container.querySelectorAll('.star');
+    
+    starElements.forEach((star, index) => {
+        if (index < stars) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
         }
     });
 }

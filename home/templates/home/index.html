@@ -14,13 +14,13 @@
     <body class="d-flex flex-column min-vh-100">
         {% include 'home/navbar.html' %}
 
-        <header class="bg-light py-5">
+        <header class=" py-5" style="background-color: #faf5f0">
             <div class="container text-center">
                 <h1 class="display-4 fw-bold ">Welcome to Crafty!</h1>
                 <p class="lead text-secondary">
                     Your one-stop destination for all DIY pottery supplies and tools.
                 </p>
-                <a href="{% url 'products' %}" class="btn btn-lg mt-3" style="background-color: #b6d7a8;" role="button" aria-label="Browse our products">
+                <a href="{% url 'products' %}" class="browse btn btn-lg mt-3" role="button" aria-label="Browse our products">
                     Browse Products
                 </a>
             </div>
@@ -33,30 +33,30 @@
                     <div class="col">
                         <div class="card h-100 shadow-sm">
                             <img src="{% static 'home/images/pottery_supplies.webp' %}" class="card-img-top" alt="Pottery Tools" aria-label="Pottery tools">
-                            <div class="card-body text-center">
+                            <div class="card-body text-center" style="background-color: #faf5f0">
                                 <h5 class="card-title">Pottery Supplies</h5>
                                 <p class="card-text">Find the best supplies to create your pottery masterpieces.</p>
-                                <a href="{% url 'products' %}?category=Pottery+Supplies" class="btn" style="background-color: #b6d7a8;">Shop Supplies</a>
+                                <a href="{% url 'products' %}?category=Pottery+Supplies" class="btn category">Shop Supplies</a>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm">
                             <img src="{% static 'home/images/finished_pottery.webp' %}" class="card-img-top" alt="Pottery Paints" aria-label="Pottery paints">
-                            <div class="card-body text-center">
+                            <div class="card-body text-center" style="background-color: #faf5f0">
                                 <h5 class="card-title">Finished Pottery</h5>
                                 <p class="card-text">Explore vibrant paints to bring your pottery to life.</p>
-                                <a href="{% url 'products' %}?category=Finished+Pottery" class="btn" style="background-color: #b6d7a8;">Shop Ceramics</a>
+                                <a href="{% url 'products' %}?category=Finished+Pottery" class="btn category" >Shop Ceramics</a>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm">
                             <img src="{% static 'home/images/art_pieces.webp' %}" class="card-img-top" alt="Pottery Clay" aria-label="Pottery clay">
-                            <div class="card-body text-center">
+                            <div class="card-body text-center" style="background-color: #faf5f0">
                                 <h5 class="card-title">Art Pieces</h5>
                                 <p class="card-text">Discover high-quality clay for all your pottery needs.</p>
-                                <a href="{% url 'products' %}?category=Art+Pieces" class="btn" style="background-color: #b6d7a8;">Shop Art</a>
+                                <a href="{% url 'products' %}?category=Art+Pieces" class="btn category" >Shop Art</a>
                             </div>
                         </div>
                     </div>

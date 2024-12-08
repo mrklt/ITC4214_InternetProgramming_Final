@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #eeddd8 !important;
+    background-color: #e2d4cb !important;
     padding: 1rem !important;
 }
 
@@ -21,7 +21,7 @@
 }
 
 footer {
-    background-color: #eeddd8 !important;
+    background-color:  #e2d4cb !important;
     padding: 1rem !important;
 }
 
@@ -47,4 +47,31 @@ footer .list-inline-item a:hover {
 
 main {
     margin: 2rem;
+}
+
+/* Global button styles (excluding shopping cart, navbar, and search) */
+button:not(.navbar button):not(.search-button):not(.btn-danger),
+.btn:not(.navbar .btn):not(.search-button):not(.cart_button):not(.btn-danger) {
+    background-color: #91a58d !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+/* Hover styles */
+button:not(.navbar button):not(.search-button):not(.btn-danger):hover,
+.btn:not(.navbar .btn):not(.search-button):not(.cart_button):not(.btn-danger):hover {
+    transform: scale(1.02);
+    background-color: #b6b6a3 !important;
+}
+
+
+/* Card hover effect */
+.card:not(.register-card):not(.team-card) {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:not(.register-card):not(.team-card):hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    background-color: #fbf7f3;
 }

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from .forms import UserRegistrationForm, UserProfileForm
@@ -31,8 +31,8 @@ def login_view(request):
     return render(request, 'registration/login.html')
 
 def logout_view(request):
-    logout(request)
-    return redirect('home')
+    logout(request)  # Log out the user
+    return redirect('home')  # Redirect to the home page
 
 @login_required
 def profile(request):
@@ -45,16 +45,3 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
     return render(request, 'registration/profile.html', {'form': form})
-
-@user_passes_test(lambda u: u.groups.filter(name='Administrators').exists())
-def admin_page(request):
-    # Admin-specific logic here
-    return render(request, 'registration/admin_page.html')
-
-def search_items(request):
-    query = request.GET.get('query', '')
-    category = request.GET.get('category', '')
-    # Add your search logic here based on your Item model
-    items = []  # Replace with actual query to your database
-    return render(request, 'registration/search_results.html', 
-                 {'items': items, 'query': query, 'category': category})

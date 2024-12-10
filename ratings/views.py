@@ -6,7 +6,13 @@ from django.db.models import Avg, Q
 
 def index(request):
     items = Item.objects.annotate(avg_rating=Avg('rating__stars')).order_by('-avg_rating')
-    return render(request, 'products/index.html', {'items': items})
+    
+    # Get recommendations for authenticated users
+    recommendations = []
+    if request.user.is_authenticated:
+        recommendations = get_recommendations(request).content  # Call the recommendations function
+
+    return render(request, 'products/index.html', {'items': items, 'recommendations': recommendations})
 
 @login_required
 def rate_item(request):
@@ -52,6 +58,9 @@ def get_recommendations(request):
         avg_rating=Avg('rating__stars')
     ).order_by('-avg_rating')[:5]
     
+    # Include image URL in the recommendations
+    recommendations = list(recommended_items.values('id', 'name', 'avg_rating', 'image'))
+    
     return JsonResponse({
-        'recommendations': list(recommended_items.values('id', 'name', 'avg_rating'))
+        'recommendations': recommendations
     })

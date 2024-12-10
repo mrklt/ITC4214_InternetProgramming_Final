@@ -63,7 +63,7 @@ function loadRecommendations() {
     fetch('/ratings/recommendations/')
     .then(response => response.json())
     .then(data => {
-        const container = document.getElementById('recommendations-container');
+        const container = document.querySelector('#recommendations-container');
         container.innerHTML = data.recommendations.map(item => `
             <div class="col-md-4">
                 <div class="item-card">

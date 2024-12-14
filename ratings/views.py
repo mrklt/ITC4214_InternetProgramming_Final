@@ -43,22 +43,22 @@ def get_recommendations(request):
     if not request.user.is_authenticated:
         return JsonResponse({'recommendations': []})
         
-    # Get user's highly rated items (4 or 5 stars)
+ 
     user_preferences = Rating.objects.filter(
         user=request.user,
         stars__gte=4
     ).values_list('item__category', flat=True)
     
-    # Find similar items in the same categories
+
     recommended_items = Item.objects.filter(
         category__in=user_preferences
     ).exclude(
-        rating__user=request.user  # Exclude items user has already rated
+        rating__user=request.user 
     ).annotate(
         avg_rating=Avg('rating__stars')
     ).order_by('-avg_rating')[:5]
     
-    # Include image URL in the recommendations
+
     recommendations = list(recommended_items.values('id', 'name', 'avg_rating', 'image'))
     
     return JsonResponse({

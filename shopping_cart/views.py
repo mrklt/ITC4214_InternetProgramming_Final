@@ -5,7 +5,7 @@ from django.contrib import messages
 from products.models import Item
 from .models import CartItem
 from ratings.views import get_recommendations 
-from products.views import product_detail # Import the recommendations function
+from products.views import product_detail 
 import json
 
 def add_to_cart(request, product_id):

@@ -10,15 +10,18 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'shopping_cart' %}"><img src="{% static 'home/images/cart.svg' %}" alt="Shopping Cart" height="24"></a></li>
+                
                 {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}"><img src="{% static 'home/images/login.svg' %}" alt="Profile" height="24"></a></li>
+                    {% if user.is_creator %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'manage_items' %}">Manage Items</a></li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'registration' %}"><img src="{% static 'home/images/login.svg' %}" alt="Registration" height="24"></a></li>
                 {% endif %}
+            
+   
             </ul>            
         </div>
     </div>
 </nav>
-
-
-

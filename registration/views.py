@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,  user_passes_test
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from .forms import UserRegistrationForm, UserProfileForm
+from products.models import Item
+from .forms import ItemForm
+
 
 def registration(request):
     if request.method == 'POST':
@@ -52,3 +55,28 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
     return render(request, 'registration/profile.html', {'form': form})
+
+@login_required
+def manage_items(request):
+    if not request.user.is_creator:
+        return redirect('home')  # Redirect if the user is not a creator
+
+    items = Item.objects.all()
+
+    if request.method == 'POST':
+        # Handle the form submission
+        item_id = request.POST.get('item_id')
+        new_price = request.POST.get('price')
+
+        # Get the item and update its price
+        item = get_object_or_404(Item, id=item_id)
+        item.price = new_price
+        item.save()
+
+        # Add a success message
+        messages.success(request, f"Price for '{item.name}' updated successfully!")
+
+        # Redirect to avoid resubmission on refresh
+        return redirect('manage_items')
+
+    return render(request, 'registration/manage_items.html', {'items': items})

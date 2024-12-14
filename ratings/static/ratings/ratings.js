@@ -1,10 +1,10 @@
 var isAuthenticated = true;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Load recommendations for logged-in users
+
     loadRecommendations();
 
-    // Handle star ratings
+
     document.querySelectorAll('.rating-container').forEach(container => {
         const stars = container.querySelectorAll('.star');
         const itemId = container.dataset.itemId;
@@ -18,8 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const value = this.dataset.value;
                 submitRating(itemId, value);
-                
-                // Show review form
+
                 container.querySelector('.review-form').style.display = 'block';
             });
         });
@@ -39,7 +38,7 @@ function submitRating(itemId, stars) {
     .then(data => {
         if (data.success) {
             updateStarDisplay(itemId, stars);
-            loadRecommendations();  // Refresh recommendations
+            loadRecommendations();  
         }
     });
 }
@@ -89,7 +88,7 @@ function loadRecommendations() {
         });
 }
 
-// Helper function to get CSRF token
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

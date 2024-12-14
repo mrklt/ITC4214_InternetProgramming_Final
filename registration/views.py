@@ -59,7 +59,7 @@ def profile(request):
 @login_required
 def manage_items(request):
     if not request.user.is_creator:
-        return redirect('home')  # Redirect if the user is not a creator
+        return redirect('home') 
 
     items = Item.objects.all()
 
@@ -73,10 +73,9 @@ def manage_items(request):
         item.price = new_price
         item.save()
 
-        # Add a success message
+      
         messages.success(request, f"Price for '{item.name}' updated successfully!")
 
-        # Redirect to avoid resubmission on refresh
         return redirect('manage_items')
 
     return render(request, 'registration/manage_items.html', {'items': items})

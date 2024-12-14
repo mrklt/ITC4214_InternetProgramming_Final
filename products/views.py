@@ -12,12 +12,12 @@ def product_list(request):
         items = items.filter(name__icontains=query)
 
     if category:
-        # Check if the selected option is a subcategory
+
         try:
             subcategory = SubCategory.objects.get(name=category)
             items = items.filter(subcategory=subcategory)
         except SubCategory.DoesNotExist:
-            # If not a subcategory, it must be a main category
+
             try:
                 category_obj = Category.objects.get(name=category)
                 items = items.filter(category=category_obj)

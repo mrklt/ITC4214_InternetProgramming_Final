@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Avg
 from .models import Item, Category, SubCategory
 
+
 def product_list(request):
     items = Item.objects.annotate(avg_rating=Avg('rating__stars'))
     query = request.GET.get('q')

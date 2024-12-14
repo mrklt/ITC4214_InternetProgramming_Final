@@ -10,7 +10,14 @@ def registration(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.groups.add(Group.objects.get(name='Users'))  
+            try:
+                group = Group.objects.get(name='Users')  # Replace with the desired group name
+                user.groups.add(group)
+            except Group.DoesNotExist:
+                # Handle the case where the group doesn't exist
+                messages.error(request, 'User group does not exist. Please create it.')
+                return redirect('home')  # Redirect to home or another appropriate page
+            
             login(request, user)
             messages.success(request, 'Registration successful!')
             return redirect('profile')

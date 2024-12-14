@@ -59,20 +59,34 @@ function updateStarDisplay(itemId, stars) {
 
 function loadRecommendations() {
     if (!isAuthenticated) return;
-    
+
     fetch('/ratings/recommendations/')
-    .then(response => response.json())
-    .then(data => {
-        const container = document.querySelector('#recommendations-container');
-        container.innerHTML = data.recommendations.map(item => `
-            <div class="col-md-4">
-                <div class="item-card">
-                    <h5>${item.name}</h5>
-                    <div class="rating">★ ${item.avg_rating || 0}/5</div>
+        .then(response => response.json())
+        .then(data => {
+            const container = document.querySelector('#recommendations-container');
+            
+            if (data.recommendations.length === 0) {
+                container.innerHTML = '<p class="text-center">No recommendations available.</p>';
+                return;
+            }
+
+            container.innerHTML = data.recommendations.map(item => `
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        ${item.image_url ? `<img src="${item.image_url}" class="card-img-top" alt="${item.name}" style="height: 200px; object-fit: cover;">` : ''}
+                        <div class="card-body">
+                            <h5 class="card-title">${item.name}</h5>
+                            <p class="card-text">Rating: ★ ${item.avg_rating ? item.avg_rating.toFixed(1) : 0}/5</p>
+                            <a href="/products/${item.id}/" class="btn btn-primary mt-auto">More Details</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `).join('');
-    });
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Error loading recommendations:', error);
+            container.innerHTML = '<p class="text-center">Failed to load recommendations. Please try again later.</p>';
+        });
 }
 
 // Helper function to get CSRF token

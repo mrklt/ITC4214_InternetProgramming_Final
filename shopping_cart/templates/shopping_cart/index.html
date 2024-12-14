@@ -87,18 +87,23 @@
                 {% for item in recommendations %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
+                        {% if item.image_url %}
+                            <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ item.name }}</h5>
                             <p class="card-text">Rating: ★ {{ item.avg_rating|floatformat:1 }}/5</p>
-                            <a href="{% url 'product_detail' item.id %}" class="btn  mt-auto">More Details</a>
+                            <a href="{% url 'product_detail' item.id %}" class="btn btn-primary mt-auto">More Details</a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
-                <p>No recommendations available.</p>
+                <p class="text-center">No recommendations available.</p>
             {% endif %}
         </div>
+        
+        
         
         </div>
 

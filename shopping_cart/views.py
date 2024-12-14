@@ -13,7 +13,6 @@ def add_to_cart(request, product_id):
     quantity = int(request.POST.get('quantity', 1))
     
     if request.user.is_authenticated:
-        # User is logged in; add directly to the cart
         cart_item, created = CartItem.objects.get_or_create(
             user=request.user,
             product=product,
@@ -25,22 +24,23 @@ def add_to_cart(request, product_id):
         messages.success(request, f'Added {quantity} {product.name} to your cart.')
         return redirect('shopping_cart')
     else:
-        # User is not logged in; store item in the session
+
         request.session['pending_cart_item'] = {'product_id': product.id, 'quantity': quantity}
         messages.info(request, 'Please log in to add items to your cart.')
-        return redirect('login')  # Redirect to login page
+        return redirect('login')
 
 
 @login_required
 def shopping_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total = sum(item.get_total() for item in cart_items)
-    
-    # Get recommendations for authenticated users
+
     recommendations = []
     if request.user.is_authenticated:
         recommendations_response = get_recommendations(request)
-        recommendations = json.loads(recommendations_response.content)['recommendations']
+        recommendations = json.loads(recommendations_response.content).get('recommendations', [])
+
+    print("Recommendations:", recommendations)
 
     context = {
         'cart_items': cart_items,
@@ -48,6 +48,7 @@ def shopping_cart(request):
         'recommendations': recommendations
     }
     return render(request, 'shopping_cart/index.html', context)
+
 
 @login_required
 def remove_from_cart(request, item_id):
